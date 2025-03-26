@@ -1,29 +1,24 @@
-# Import necessary libraries
+# Description: This file is used to predict the meal of the test data using Decision Tree Classifier.
 import pandas as pd
+import numpy as np
+import patsy as pt
+
+from sklearn.ensemble import RandomForestClassifier as RF
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
+from sklearn.model_selection import train_test_split
 
-# Load training and testing datasets
-train_data = pd.read_csv("assignment2train.csv")
 test_data = pd.read_csv("assignment2test.csv")
+train_data = pd.read_csv("assignment2train.csv")
+y = train_data['meal']
+x = train_data.drop(['meal','id','DateTime'], axis = 1)
 
-# Define target and feature columns
-target_column = 'meal'
-columns_to_drop = ['meal', 'id', 'DateTime']
-
-# Prepare training data
-X_train = train_data.drop(columns=columns_to_drop, axis=1)
-y_train = train_data[target_column]
-
-# Initialize and train the model
 model = DecisionTreeClassifier(max_depth=100, min_samples_leaf=10)
-model.fit(X_train, y_train)
 
-# Prepare testing data
-X_test = test_data.drop(columns=columns_to_drop, axis=1)
+modelFit = model.fit(x,y)
 
-# Make predictions
-predictions = model.predict(X_test).astype(float)
 
-# Output predictions (if needed for debugging or saving)
-print(predictions)
+xt = test_data.drop(['meal', 'id', 'DateTime'], axis=1)
+
+pred = modelFit.predict(xt)
+pred = pred.astype(float)
