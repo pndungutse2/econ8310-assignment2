@@ -1,8 +1,5 @@
 # Description: This file is used to predict the meal of the test data using Decision Tree Classifier.
 import pandas as pd
-import numpy as np
-import patsy as pt
-
 from sklearn.ensemble import RandomForestClassifier as RF
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
